@@ -15,8 +15,8 @@ echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
 echo 250 > configs/c.1/MaxPower
 # Add functions here
 
+# Keyboard
 mkdir -p functions/hid.usb0
-
 
 echo 1 > functions/hid.usb0/protocol
 echo 1 > functions/hid.usb0/subclass
@@ -25,7 +25,13 @@ echo -ne \\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\
 ln -s functions/hid.usb0 configs/c.1/
 
 
-
+# Mouse
+mkdir functions/hid.usb1
+echo 0 > functions/hid.usb1/protocol
+echo 0 > functions/hid.usb1/subclass
+echo 64 > functions/hid.usb1/report_length
+echo -ne "\x06\x00\xFF\x09\x01\xA1\x01\x09\x02\x15\x00\x25\xFF\x75\x08\x95\x40\x81\x02\x09\x03\x15\x00\x25\xFF\x75\x08\x95\x40\x91\x02\xC0" > functions/hid.usb1/report_desc
+ln -s functions/hid.usb1 configs/c.1
 
 # End functions
 ls /sys/class/udc > UDC
